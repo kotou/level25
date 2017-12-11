@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>登录|注册</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_504016_npkrzio6yyq1if6r.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        html, body, main {
+            height: 100%;
+        }
+
+        body {
+            font: 14px/1.5 Arial;
+        }
+
+        main {
+            background: url(https://ws1.sinaimg.cn/large/b44f5fbfgy1fmc31yy1lzj21ao0t6wkf.jpg) center no-repeat;
+            background-size: cover;
+        }
+
+        header {
+            width: 100%;
+        }
+
+        header .wrap-login {
+            float: right;
+            margin-top: 10px;
+            margin-right: 20px;
+        }
+
+        header .wrap-login i {
+            font-size: 20px;
+        }
+
+        main .modal {
+            width: 400px;
+            padding: 16px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            box-shadow: 0 3px 4px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal .close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+
+        .modal .notice {
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .modal .notice a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #666;
+        }
+
+        .modal .notice .active {
+            border-bottom: 2px solid #444;
+            color: #444;
+        }
+
+        main .panel {
+            padding: 20px 40px;
+        }
+
+        main .tag {
+            position: relative;
+        }
+
+        main .tag input {
+            padding: 10px 10px 10px 28px;
+            margin-bottom: 10px;
+            width: 100%;
+            outline: none;
+        }
+
+        main .tag i {
+            position: absolute;
+            top: 7px;
+            left: 7px;
+        }
+
+        main .btn input {
+            padding: 6px 10px;
+            border: none;
+            background: #fff;
+            outline: none;
+            box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .wrapper.login .modal-login, .wrapper.register .modal-register {
+            transform: translate(-50%, -50%) rotateY(0deg);
+            backface-visibility: hidden;
+            transition: all 1s;
+        }
+
+        .wrapper.login .modal-register, .wrapper.register .modal-login {
+            transform: translate(-50%, -50%) rotateY(180deg);
+            backface-visibility: hidden;
+            transition: all 1s;
+        }
+
+        .wrapper {
+            display: none;
+        }
+
+        .message {
+            font-size: 12px;
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a class="wrap-login" href="#"><i class=" iconfont icon-denglu"></i></a>
+</header>
+<main>
+    <div class="wrapper login">
+        <div class="modal modal-login">
+            <a class="close iconfont icon-guanbi" href="#"></a>
+            <div class="notice">
+                <a class="one-login active" href="#">登录</a>
+                <a class="one-register" href="#">注册</a>
+            </div>
+            <div class="panel">
+                <div class="message"></div>
+                <form action="#" method="post">
+                    <div class="tag">
+                        <i class="iconfont icon-yonghuming"></i>
+                        <input id=user-name name="username" type="text" placeholder="用户名">
+                    </div>
+                    <div class="tag">
+                        <i class="iconfont icon-mima"></i>
+                        <input id=pass-word name="password" type="text" placeholder="密码">
+                    </div>
+                    <div class="btn">
+                        <input type="submit" value="登录">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal modal-register">
+            <a class="close iconfont icon-guanbi" href="#"></a>
+            <div class="notice">
+                <a class="two-login" href="#">登录</a>
+                <a class="two-register active" href="#">注册</a>
+            </div>
+            <div class="panel">
+                <div class="message"></div>
+                <form action="#" method="post">
+                    <div class="tag">
+                        <i class="iconfont icon-yonghuming"></i>
+                        <input id=input-username name="username" type="text" placeholder="输入用户名">
+                    </div>
+                    <div class="tag">
+                        <i class="iconfont icon-mima"></i>
+                        <input id=input-password name="password" type="password" placeholder="输入密码">
+                    </div>
+                    <div class="tag">
+                        <i class="iconfont icon-mima"></i>
+                        <input id=input-password2 name="password" type="password" placeholder="再次输入密码">
+                    </div>
+                    <div class="btn">
+                        <input type="submit" value="注册">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    function $(selector) {
+        return document.querySelector(selector)
+    }
+
+    $(".wrap-login").onclick = function (e) {
+        e.stopPropagation()
+        $(".wrapper").style.display = 'block'
+    }
+    $('.wrapper').addEventListener('click', function (e) {
+        e.stopPropagation()
+        if (e.target.classList.contains('two-login')) {
+            $('.wrapper').classList.remove('register')
+            $('.wrapper').classList.add('login')
+        }
+        if (e.target.classList.contains('one-register')) {
+            $('.wrapper').classList.remove('login')
+            $('.wrapper').classList.add('register')
+        }
+        if (e.target.classList.contains('close')) {
+            $('.wrapper').style.display = 'none'
+        }
+    })
+    document.addEventListener('click', function () {
+        $('.wrapper').style.display = 'none'
+    })
+    $('.modal-login').addEventListener('submit', function (e) {
+        e.preventDefault()
+        if (!/^\w{3,8}$/.test($('#user-name').value)) {
+            $('.modal-login .message').innerText = '用户名需输入3-8个字符，包括字母数字下划线'
+            return false
+        }
+        if (!/^\w{6,10}$/.test($('#pass-word').value)) {
+            $('.modal-login .message').innerText = '密码需输入6-10个字符，包括字母数字下划线'
+            return false
+        }
+        this.submit()
+    })
+    $('.modal-register').addEventListener('submit', function (e) {
+        e.preventDefault()
+        if (!/^\w{3,8}$/.test($('#input-username').value)) {
+            $('.modal-register .message').innerText = '用户名需输入3-8个字符，包括字母数字下划线'
+            return false
+        }
+        if (/^baidu$|^jirengu$/.test($('#input-username').value)) {
+            $('.modal-register .message').innerText = '用户名已存在'
+            return false
+        }
+        if (!/^\w{6,10}$/.test($('#input-password').value)) {
+            $('.modal-register .message').innerText = '密码需输入6-10个字符，包括字母数字下划线'
+            return false
+        }
+        if ($('#input-password').value !== $('#input-password2').value) {
+            $('.modal-register .message').innerText = '两次输入的密码不一致'
+            return false
+        }
+        this.submit()
+    })
+</script>
+</body>
+</html>
